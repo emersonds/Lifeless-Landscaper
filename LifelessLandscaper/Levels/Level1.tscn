@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bi7e7pklqipxq"]
+[gd_scene load_steps=6 format=3 uid="uid://bi7e7pklqipxq"]
 
 [ext_resource type="Texture2D" uid="uid://bl47yifpm7urm" path="res://Sprites/EnvironmentTiles.png" id="1_pbsh3"]
 [ext_resource type="PackedScene" uid="uid://1tjtsuptob5d" path="res://Objects/Player.tscn" id="2_pmy1d"]
+[ext_resource type="PackedScene" uid="uid://ccl7kkgp4ocvl" path="res://Objects/Mower.tscn" id="3_0rftn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ykjlk"]
 texture = ExtResource("1_pbsh3")
@@ -59,3 +60,6 @@ layer_1/tile_data = PackedInt32Array(458741, 131072, 1, 458742, 131072, 1, 45874
 [node name="Player" parent="." instance=ExtResource("2_pmy1d")]
 move_speed = 65.0
 mower_offset = 10.0
+
+[node name="Mower" parent="." instance=ExtResource("3_0rftn")]
+position = Vector2(-70, -7)

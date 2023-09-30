@@ -6,22 +6,24 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8f2iq"]
 size = Vector2(7, 12)
 
-[sub_resource type="BoxMesh" id="BoxMesh_b05ly"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ki2mq"]
+radius = 20.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_5gi0u")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+z_index = 1
 texture = ExtResource("2_tajaq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_8f2iq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
-[node name="ExampleMesh" type="MeshInstance2D" parent="."]
-position = Vector2(0, -12)
-scale = Vector2(10.75, 9.75)
-mesh = SubResource("BoxMesh_b05ly")
+[node name="MowerRange" type="Area2D" parent="."]
+
+[node name="TriggerArea" type="CollisionShape2D" parent="MowerRange"]
+shape = SubResource("CircleShape2D_ki2mq")

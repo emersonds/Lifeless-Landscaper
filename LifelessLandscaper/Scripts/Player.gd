@@ -1,13 +1,13 @@
 extends CharacterBody2D
 
 @export var move_speed: float = 50.0
-@export var mow_speed_multiplier: float = 0.75
+@export var mow_speed_multiplier: float = 0.60
 @export var mower_offset: float = 12.0
 
-var is_mowing: bool = true
+var mower: Node
+var is_mowing: bool = false
 var mower_pos: Vector2
 
-@onready var mower_object = $ExampleMesh
 
 # Called every frame
 func _process(delta):
@@ -26,11 +26,10 @@ func _physics_process(delta):
 	if is_mowing:
 		velocity *= mow_speed_multiplier
 		
-		if is_instance_valid(mower_object):
+		if is_instance_valid(mower):
 			if dir != Vector2.ZERO:
-				mower_object.position = dir * mower_offset
-				mower_pos = mower_object.global_position
-				print(mower_pos)
+				mower.position = dir * mower_offset
+				mower_pos = mower.global_position
 	
 	# Move player
 	move_and_slide()
@@ -38,10 +37,22 @@ func _physics_process(delta):
 # Check if player starts mowing.
 func CheckMowing():
 	if Input.is_action_just_pressed("toggle_mow"):
-		is_mowing = not is_mowing
-		
-		if is_mowing == false:
-			if is_instance_valid(mower_object):
-				remove_child(mower_object)
-				get_node("/root").add_child(mower_object)
-				get_node("/root/ExampleMesh").set_global_position(mower_pos)
+		# If not mowing, equip the mower
+		if not is_mowing:
+			for body in $MowerRange.get_overlapping_bodies():
+				if body.is_in_group("Mower"):
+					mower = body
+					mower.get_parent().remove_child(mower)
+					self.add_child(mower)
+					mower.global_position = self.global_position
+					mower.get_node("CollisionShape2D").disabled = true
+					is_mowing = true
+		# If mowing, drop the mower
+		else:
+			if is_instance_valid(mower):
+				remove_child(mower)
+				get_node("/root").add_child(mower)
+				mower.set_global_position(mower_pos)
+				mower.get_node("CollisionShape2D").disabled = false
+				mower = null
+				is_mowing = false
