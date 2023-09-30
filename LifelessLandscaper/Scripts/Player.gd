@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var mower_offset: float = 12.0
 
 var is_mowing: bool = true
+var mower_pos: Vector2
 
 @onready var mower_object = $ExampleMesh
 
@@ -24,8 +25,12 @@ func _physics_process(delta):
 	# Change speed if mowing
 	if is_mowing:
 		velocity *= mow_speed_multiplier
+		
 		if is_instance_valid(mower_object):
-			mower_object.position = dir * mower_offset
+			if dir != Vector2.ZERO:
+				mower_object.position = dir * mower_offset
+				mower_pos = mower_object.global_position
+				print(mower_pos)
 	
 	# Move player
 	move_and_slide()
@@ -39,3 +44,4 @@ func CheckMowing():
 		if is_instance_valid(mower_object):
 			remove_child(mower_object)
 			get_node("/root").add_child(mower_object)
+			get_node("/root/ExampleMesh").set_global_position(mower_pos)
