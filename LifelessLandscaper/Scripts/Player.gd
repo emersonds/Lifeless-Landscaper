@@ -39,9 +39,9 @@ func _physics_process(delta):
 func CheckMowing():
 	if Input.is_action_just_pressed("toggle_mow"):
 		is_mowing = not is_mowing
-	
-	if is_mowing == false:
-		if is_instance_valid(mower_object):
-			remove_child(mower_object)
-			get_node("/root").add_child(mower_object)
-			get_node("/root/ExampleMesh").set_global_position(mower_pos)
+		
+		if is_mowing == false:
+			if is_instance_valid(mower_object):
+				remove_child(mower_object)
+				get_node("/root").add_child(mower_object)
+				get_node("/root/ExampleMesh").set_global_position(mower_pos)
