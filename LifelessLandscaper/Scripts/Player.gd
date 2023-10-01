@@ -8,6 +8,7 @@ var mower: Node
 var is_mowing: bool = false
 var mower_pos: Vector2
 
+@onready var terrainDetector = $TerrainDetector
 
 # Called every frame
 func _process(delta):
@@ -56,3 +57,9 @@ func CheckMowing():
 				mower.get_node("CollisionShape2D").disabled = false
 				mower = null
 				is_mowing = false
+
+
+func _on_terrain_detector_terrain_entered(terrain_type, terrain_coords):
+	#print(terrain_type, "\n", terrain_coords)
+	if is_mowing:
+		terrainDetector.mow_tile(terrain_coords)

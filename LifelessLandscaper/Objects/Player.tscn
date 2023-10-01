@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://1tjtsuptob5d"]
+[gd_scene load_steps=7 format=3 uid="uid://1tjtsuptob5d"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_5gi0u"]
 [ext_resource type="Texture2D" uid="uid://eho16yu4f7g3" path="res://Sprites/TEMP_Player.png" id="2_tajaq"]
+[ext_resource type="Script" path="res://Scripts/TerrainDetector.gd" id="3_cj585"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8f2iq"]
 size = Vector2(7, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ki2mq"]
 radius = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3kp5"]
+size = Vector2(8, 8)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_5gi0u")
@@ -27,3 +31,14 @@ zoom = Vector2(3, 3)
 
 [node name="TriggerArea" type="CollisionShape2D" parent="MowerRange"]
 shape = SubResource("CircleShape2D_ki2mq")
+
+[node name="TerrainDetector" type="Area2D" parent="."]
+collision_layer = 33
+collision_mask = 33
+script = ExtResource("3_cj585")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TerrainDetector"]
+shape = SubResource("RectangleShape2D_p3kp5")
+
+[connection signal="body_shape_entered" from="TerrainDetector" to="TerrainDetector" method="_on_body_shape_entered"]
+[connection signal="terrain_entered" from="TerrainDetector" to="." method="_on_terrain_detector_terrain_entered"]
