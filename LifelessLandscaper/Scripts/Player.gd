@@ -8,11 +8,16 @@ var mower: Node
 var is_mowing: bool = false
 var mower_pos: Vector2
 
-@onready var terrainDetector = $TerrainDetector
+@onready var terrain_detector = $TerrainDetector
+@onready var mower_noise: AudioStreamPlayer = $MowerNoise
 
 # Called every frame
 func _process(delta):
 	CheckMowing()
+	if is_mowing:
+		mower_noise.play()
+	else:
+		mower_noise.stop()
 
 # Called every second
 func _physics_process(delta):
@@ -62,4 +67,4 @@ func CheckMowing():
 func _on_terrain_detector_terrain_entered(terrain_type, terrain_coords):
 	#print(terrain_type, "\n", terrain_coords)
 	if is_mowing:
-		terrainDetector.mow_tile(terrain_coords)
+		terrain_detector.mow_tile(terrain_coords)

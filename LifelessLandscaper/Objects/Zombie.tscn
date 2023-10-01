@@ -1,7 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cj82jxqtxik2p"]
+[gd_scene load_steps=16 format=3 uid="uid://cj82jxqtxik2p"]
 
 [ext_resource type="Script" path="res://Scripts/Zombie.gd" id="1_7bgpd"]
 [ext_resource type="Texture2D" uid="uid://c06altr1s01hk" path="res://Sprites/ZombieHand-Sheet.png" id="2_nke68"]
+[ext_resource type="AudioStream" uid="uid://bgb85vrrynn5i" path="res://Audio/Zombie_Hide.ogg" id="3_5r41q"]
+[ext_resource type="AudioStream" uid="uid://cato5knll76bk" path="res://Audio/Zombie_Rise.ogg" id="4_myq05"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u0yb3"]
 
@@ -92,6 +94,14 @@ one_shot = true
 
 [node name="AlertTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ZombieHide" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5r41q")
+volume_db = -11.244
+
+[node name="ZombieRise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_myq05")
+volume_db = -13.296
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

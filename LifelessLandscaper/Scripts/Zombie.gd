@@ -11,6 +11,8 @@ var is_on_alert: bool
 @onready var hitbox: CollisionShape2D = $Hitbox
 @onready var hide_timer: Timer = $HideTimer
 @onready var alert_timer: Timer = $AlertTimer
+@onready var zombie_hide: AudioStreamPlayer = $ZombieHide
+@onready var zombie_rise: AudioStreamPlayer = $ZombieRise
 
 func _ready():
 	_hide_zombie()
@@ -35,6 +37,7 @@ func _reveal_zombie():
 	hitbox.set_deferred("disabled", false)
 	sprite.visible = true
 	sprite.play("zombie_rise")
+	zombie_rise.play()
 	
 	is_on_alert = false
 	is_hidden = false
@@ -44,6 +47,7 @@ func _reveal_zombie():
 func _on_hide_timer_timeout():
 	hiding = true
 	sprite.play_backwards("zombie_rise")
+	zombie_hide.play()
 
 
 func _on_alert_timer_timeout():
