@@ -11,7 +11,7 @@ size = Vector2(7, 12)
 radius = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p3kp5"]
-size = Vector2(8, 8)
+size = Vector2(1, 1)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_5gi0u")
@@ -38,6 +38,7 @@ collision_mask = 33
 script = ExtResource("3_cj585")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TerrainDetector"]
+position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_p3kp5")
 
 [connection signal="body_shape_entered" from="TerrainDetector" to="TerrainDetector" method="_on_body_shape_entered"]
