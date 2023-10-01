@@ -63,7 +63,7 @@ func _update_terrain(terrain_mask: int, new_coords: Vector2i):
 func mow_tile(tile_pos: Vector2i):
 	# Changes the cell to the mowed tile
 	# set_cell(layer, coords, source_id, atlas_coords)
-	# Layer is physics layers in tile set
+	# Layers in tile set
 	# coords is the cell position on map (game world)
 	# source_id is the tile set source (found in tileset)
 	# atlas_coords is the coords of the new tile in the atlas (found in tileset)

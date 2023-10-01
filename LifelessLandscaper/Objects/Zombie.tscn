@@ -1,0 +1,99 @@
+[gd_scene load_steps=14 format=3 uid="uid://cj82jxqtxik2p"]
+
+[ext_resource type="Script" path="res://Scripts/Zombie.gd" id="1_7bgpd"]
+[ext_resource type="Texture2D" uid="uid://c06altr1s01hk" path="res://Sprites/ZombieHand-Sheet.png" id="2_nke68"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u0yb3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dmha"]
+atlas = ExtResource("2_nke68")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_acp0f"]
+atlas = ExtResource("2_nke68")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yo0br"]
+atlas = ExtResource("2_nke68")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q734b"]
+atlas = ExtResource("2_nke68")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxh11"]
+atlas = ExtResource("2_nke68")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or15u"]
+atlas = ExtResource("2_nke68")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khhhw"]
+atlas = ExtResource("2_nke68")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jqpg5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dmha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_acp0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yo0br")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q734b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxh11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_or15u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khhhw")
+}],
+"loop": false,
+"name": &"zombie_rise",
+"speed": 14.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xn8s"]
+size = Vector2(12, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h8pab"]
+radius = 15.0
+
+[node name="ZombieEnemy" type="StaticBody2D"]
+disable_mode = 2
+physics_material_override = SubResource("PhysicsMaterial_u0yb3")
+script = ExtResource("1_7bgpd")
+time_before_hide = 2.0
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jqpg5")
+animation = &"zombie_rise"
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_0xn8s")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="AreaTrigger" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_h8pab")
+
+[node name="HideTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AlertTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="HideTimer" to="." method="_on_hide_timer_timeout"]
+[connection signal="timeout" from="AlertTimer" to="." method="_on_alert_timer_timeout"]
