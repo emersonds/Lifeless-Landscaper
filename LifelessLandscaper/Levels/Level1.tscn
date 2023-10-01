@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi7e7pklqipxq"]
+[gd_scene load_steps=8 format=3 uid="uid://bi7e7pklqipxq"]
 
 [ext_resource type="Texture2D" uid="uid://bl47yifpm7urm" path="res://Sprites/EnvironmentTiles.png" id="1_pbsh3"]
 [ext_resource type="PackedScene" uid="uid://1tjtsuptob5d" path="res://Objects/Player.tscn" id="2_pmy1d"]
 [ext_resource type="PackedScene" uid="uid://ccl7kkgp4ocvl" path="res://Objects/Mower.tscn" id="3_0rftn"]
 [ext_resource type="PackedScene" uid="uid://cj82jxqtxik2p" path="res://Objects/Zombie.tscn" id="4_esvcf"]
+[ext_resource type="AudioStream" uid="uid://dqxgx3r8yaojf" path="res://Audio/LifelessLandscaperOST.ogg" id="5_f4365"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ykjlk"]
 texture = ExtResource("1_pbsh3")
@@ -148,3 +149,8 @@ position = Vector2(-141, 47)
 
 [node name="ZombieEnemy12" parent="." instance=ExtResource("4_esvcf")]
 position = Vector2(97, 81)
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_f4365")
+volume_db = -12.18
+autoplay = true

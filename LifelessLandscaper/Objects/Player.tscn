@@ -44,8 +44,8 @@ shape = SubResource("RectangleShape2D_p3kp5")
 
 [node name="MowerNoise" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_butcx")
-volume_db = -20.778
-pitch_scale = 0.68
+volume_db = -9.535
+pitch_scale = 0.21
 
 [connection signal="body_shape_entered" from="TerrainDetector" to="TerrainDetector" method="_on_body_shape_entered"]
 [connection signal="terrain_entered" from="TerrainDetector" to="." method="_on_terrain_detector_terrain_entered"]
